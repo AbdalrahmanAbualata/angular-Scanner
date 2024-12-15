@@ -1,0 +1,90 @@
+<div class="scanner-dropdown-container">
+  <h2>Select a Scanner</h2>
+
+
+  <p *ngIf="isLoading" class="loading-message">Loading scanners...</p>
+
+
+  <p *ngIf="error" class="error-message">{{ error }}</p>
+
+
+  <select [value]="selectedScanner?.Name" (change)="handleScannerChange($event)"
+    [disabled]="isLoading || scanners.length === 0" class="scanner-dropdown">
+    <option value="">Select a Scanner</option>
+    <option *ngIf="scanners.length === 0 && !isLoading" value="">No scanners available</option>
+    <option *ngFor="let scanner of scanners" [value]="scanner.Name">
+       {{ scanner.Name }}
+    </option>
+  </select>
+
+
+    <div *ngIf="selectedScanner?.HasFeeder">
+      <label>Feeding Type:</label>
+      <select [(ngModel)]="feedingType">
+        <option [value]="2">Flatbed</option>
+        <option [value]="1">Feeder</option>
+      </select>
+    </div>
+
+
+   <button *ngIf="selectedScanner" (click)="scanImage()" [disabled]="isLoading" class="scan-image-btn">
+    Scan Image
+  </button>
+
+  <div>
+    <h3>Upload Images</h3>
+
+    <div class="upload-btn-container">
+      <label for="file-upload" class="upload-btn">Choose File</label>
+      <input id="file-upload" type="file" (change)="onFilesSelected($event)" multiple />
+    </div>
+  </div>
+
+
+  <div *ngIf="images.length > 0" class="uploaded-images-container">
+    <h3>Uploaded Images</h3>
+    <div class="image-container">
+
+      <div class="image-thumbnail" *ngFor="let image of images; let i = index" (click)="openModal(image, i)"
+        (mouseover)="showDeleteButton(i)" (mouseleave)="hideDeleteButton(i)">
+        <img [src]="image" alt="Uploaded Image {{ i + 1 }}" />
+
+      <div class="button-popup">
+        <button class="delete-btn" (click)="deleteImage($event, i)">Delete</button>
+        <button class="edit-btn" (click)="editImage($event, i)">Edit</button>
+      </div>
+      </div>
+    </div>
+  </div>
+
+
+<div *ngIf="isEditing" class="image-edit-container">
+  <h3>Edit Image</h3>
+
+  <img #canvas [src]="editedImage?.src" alt="Edit Image" width="500" height="500"/>
+
+  <div class="controls">
+    <button (click)="adjustRotation(90)">Rotate 90°</button>
+    <button (click)="adjustRotation(-90)">Rotate -90°</button>
+    <button (click)="saveChanges()">Save</button>
+    <button (click)="cancelEditing()">Cancel</button>
+  </div>
+</div>
+
+
+  <div *ngIf="images.length > 0" class="generate-pdf-container">
+    <button (click)="generatePDF()">Generate PDF</button>
+  </div>
+
+  <div *ngIf="isModalOpen" class="image-modal" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close-btn" (click)="closeModal()">&times;</span>
+      <img [src]="previewImageSrc" alt="Image Preview" class="modal-image" />
+
+      <div class="modal-navigation">
+        <button (click)="navigateImage('previous')">Previous</button>
+        <button (click)="navigateImage('next')">Next</button>
+      </div>
+    </div>
+  </div>
+</div>

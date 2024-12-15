@@ -1,0 +1,385 @@
+/* General styling */
+.uploaded-images-container {
+  margin-top: 20px;
+  padding: 25px;
+  background: linear-gradient(135deg, #f7f8fa 0%, #e2e8f0 100%);
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+  max-width: 100%;
+  overflow: hidden;
+  transition: box-shadow 0.4s ease, transform 0.4s ease;
+}
+
+.uploaded-images-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+}
+
+/* Image container layout */
+.image-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+/* Image Thumbnail */
+.image-thumbnail {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+  cursor: pointer;
+  transform: scale(1);
+  will-change: transform, box-shadow;
+}
+
+.image-thumbnail img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px;
+  transition: transform 0.3s ease;
+}
+
+/* Hover effect on image thumbnail */
+.image-thumbnail:hover {
+  transform: scale(1.15);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+  filter: brightness(1.1);
+}
+
+
+
+/* Hide the default file input button */
+input[type="file"] {
+  display: none; /* Hide the original file input */
+}
+
+/* Custom file upload button */
+.upload-btn-container {
+  position: relative;
+  display: inline-block;
+}
+
+.upload-btn {
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  padding: 12px 24px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+.upload-btn:hover {
+  background-color: #45a049;
+  transform: scale(1.05); /* Slight scale on hover */
+}
+
+.upload-btn:active {
+  background-color: #388e3c; /* Darker green when clicked */
+}
+
+/* Optional: Add style for file input when triggered */
+.upload-btn-container input[type="file"] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+/* Floating Button Popup */
+.button-popup {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.image-thumbnail:hover .button-popup {
+  display: flex;
+}
+
+.delete-btn,
+.edit-btn {
+  padding: 12px 16px;
+  font-size: 14px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  width: 70px;
+  text-align: center;
+}
+
+.delete-btn {
+  background-color: #ff6f61;
+}
+
+.delete-btn:hover {
+  background-color: #e04e3a;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(255, 111, 97, 0.3);
+}
+
+.edit-btn {
+  background-color: #4e91fd;
+}
+
+.edit-btn:hover {
+  background-color: #3587cc;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(78, 145, 253, 0.3);
+}
+
+
+
+
+/* Basic Style for Scan Image Button */
+.scan-image-btn {
+  padding: 14px 28px; /* Add padding for a comfortable size */
+  background-color: #4CAF50; /* Green background color */
+  color: white; /* Text color */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Make the text bold */
+  border: none; /* Remove border */
+  border-radius: 12px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor to indicate clickability */
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  width: auto; /* Set the width to adjust based on content */
+  display: inline-block;
+  text-align: center; /* Center the text */
+}
+
+/* Hover effect */
+.scan-image-btn:hover {
+  background-color: #45a049; /* Slightly darker green on hover */
+  transform: scale(1.05); /* Slight scale effect on hover */
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2); /* Subtle shadow effect */
+}
+
+/* Active (click) effect */
+.scan-image-btn:active {
+  background-color: #388e3c; /* Darker green when clicked */
+  transform: translateY(4px); /* Button presses down when clicked */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Slight shadow for "pressed" effect */
+}
+
+/* Disabled button */
+.scan-image-btn:disabled {
+  background-color: #b0bec5; /* Light grey background for disabled state */
+  color: #757575; /* Grey text */
+  cursor: not-allowed; /* Prevent click interaction */
+  transform: none; /* Disable any transform effect */
+  box-shadow: none; /* Remove any shadow effect */
+}
+
+/* Optional: Add a loading spinner animation when the button is disabled (while loading) */
+.scan-image-btn[disabled]::after {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid #ffffff;
+  border-top: 3px solid #4CAF50;
+  animation: spin 1s linear infinite;
+  margin-left: 10px;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Modal Styling */
+.image-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-content {
+  background-color: #ffffff;
+  padding: 30px;
+  border-radius: 20px;
+  max-width:70%;
+  max-height: 85%;
+  overflow: auto;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.modal-content:hover {
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.25);
+  transform: translateY(-5px);
+}
+
+.modal-image {
+  width: 65%; /* Set a percentage for responsive scaling */
+  max-width: 700px;
+  height: auto;
+  max-height: 85%;
+  border-radius: 15px;
+  object-fit: contain;
+  animation: zoomIn 0.5s ease-in-out;
+
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.95);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+.close-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  font-size: 35px;
+  color: #333;
+  cursor: pointer;
+  font-weight: bold;
+  transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.close-btn:hover {
+  color: #4CAF50;
+  transform: rotate(180deg);
+}
+
+
+
+.scanner-dropdown-container {
+  padding: 30px;
+  background: linear-gradient(135deg, #f0f4f8 0%, #f7f7f7 100%);
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  min-width: 300px; /* Set a minimum width to make it look more balanced */
+  text-align: center; /* Center the content inside */
+}
+
+
+.loading-message,
+.error-message {
+  font-weight: bold;
+  text-align: center;
+}
+
+.error-message {
+  color: #e74c3c;
+}
+
+.scanner-dropdown {
+  width: 100%;
+  padding: 15px 18px;
+  margin: 15px 0;
+  border-radius: 12px;
+  border: 1px solid #ddd;
+  background-color: #ffffff;
+  font-size: 16px;
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.scanner-dropdown:focus {
+  border-color: #4e91fd;
+  background-color: #e8f4fd;
+  outline: none;
+}
+
+/* Image Edit Container */
+.image-edit-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 30px;
+  background: linear-gradient(135deg, #f0f4f8 0%, #e2e8f0 100%);
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+}
+
+.controls {
+  margin-top: 20px;
+  display: flex;
+  gap: 20px;
+}
+
+.controls button {
+  padding: 14px 22px;
+  margin: 8px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.controls button:hover {
+  background-color: #45a049;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+}
+
+/* PDF Button Styling */
+.generate-pdf-container {
+  margin-top: 25px;
+}
+
+.generate-pdf-container button {
+  padding: 14px 24px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.generate-pdf-container button:hover {
+  background-color: #45a049;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(76, 175, 80, 0.2);
+}
